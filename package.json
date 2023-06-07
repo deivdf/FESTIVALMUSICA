@@ -4,11 +4,13 @@
   "description": "proyecto con glup y sass y html",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sass": "sass --watch src/scss:build/css",
+    "tarea": "gulp tarea "
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deivdf/FESTIVALMUSICA.git"
+    "url": "git+https://github.com/deivdf/FESTIVALMUSICA.git",
+    "git ingnore": "node_modules/"
   },
   "keywords": [
     "SASS",
@@ -21,6 +23,7 @@
   },
   "homepage": "https://github.com/deivdf/FESTIVALMUSICA#readme",
   "devDependencies": {
+    "gulp": "^4.0.2",
     "sass": "^1.62.1"
   }
 }
