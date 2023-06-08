@@ -1,4 +1,5 @@
-$rojo: pink;
-body {
-  background-color: $rojo;
-}
+//@import './base/variable'; vieja forma
+//@import './contenido/contenido'; veija forma
+//nueva forma
+@use './base';
+@use './contenido';
