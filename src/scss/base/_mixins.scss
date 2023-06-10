@@ -1,0 +1,13 @@
+// @use 'variable' as v;
+// //se comporta como lenguaje de programacion
+// @mixin heading($color: blue, $boreder-radius: false){
+//     text-transform: uppercase;
+//     font-size: 2.4rem;
+//     color: $color;
+//     background-color: brown;
+//     letter-spacing:1px;
+//     @if $boreder-radius{
+//         border-radius: 1rem;
+//     }
+// }
+//para repetir el codigo de los botones

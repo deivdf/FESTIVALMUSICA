@@ -1,7 +1,0 @@
-@use './base/variable';
-h1{
-    color: variable.$rojo;
-}
-body{
-    background-color: variable.$gris;
-}
