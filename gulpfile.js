@@ -1,15 +1,15 @@
-const { src, dest, watch, parallel } = require('gulp');//importa funciones propias de gulp
+const { src, dest, watch, parallel } = require('gulp');//importa funciones propias de gulp y direciones de carpetas
 //apartado css
 const sass = require("gulp-sass")(require('sass'));
 const plumber = require("gulp-plumber");
 //cenvertidor de imagenes a webp,e precesamiento de imagen con imagemin y requere cache
-const cache = require('gulp-cache')
-const imagemin = require('gulp-imagemin')
-const webp = require('gulp-webp');
+const cache = require('gulp-cache') // cache se eencarga de guardar archivos de convercion residual
+const imagemin = require('gulp-imagemin')// imagemin hace la conversion con mas calidad de imagenes
+const webp = require('gulp-webp');// convierte las imagenes a formato webp
 //funcion de integracion de scss a css con gulp
 function css(cb){
     src('./src/scss/**/*.scss')// identificar el archivo de sass
-    .pipe(plumber())
+    .pipe(plumber()) // evitar que se detenga la compilacion por errores
     .pipe( sass () ) // compilar el archivo de sass
     .pipe( dest('build/css'))  // Almacenar el archivo en el disco
 
@@ -21,7 +21,7 @@ function imagenes(cb){
         optimizacionLevel:3
     }
     src('./src/img/**/*.{png,jpg}')//se encarga de buscar todas las imagines en {png,jpg}estos formatos
-    .pipe( cache(imagemin()) ) // compilar el archivo de sass
+    .pipe( cache(imagemin()) ) // compilar el archivo de sass cache se eencarga de guardar archivos de convercion residual
     .pipe( dest('build/img'))
     cb(); // callback function que
 }
