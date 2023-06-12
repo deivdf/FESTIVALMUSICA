@@ -32,8 +32,8 @@
         @content;
     }
 }
-@mixin grid{
+@mixin grid($columnas, $espaciado) {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 5rem;
+    grid-template-columns: repeat($columnas, 1fr);
+    gap: $espaciado;
 }
