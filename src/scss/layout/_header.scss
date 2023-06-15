@@ -3,6 +3,16 @@
 .header{
 
     background-color: v.$verde;
+    //es media query evita que la barrar de navegacion se mueva en pantallas pequeñas
+    @include m.tablet {
+        &.fijo{
+            left: 0;
+            top: 0;
+            position: fixed;
+            width: 100%;
+            box-shadow: .1rem .2rem .3rem #333;
+        }
+    }
     h1{
         color: v.$blanco;
         text-align: center;
@@ -20,7 +30,7 @@
     }
 }
 .navegacion-principal{
-    //se replaza con snippet
+    //se replaza con snippet que hacen el llamado mq imv imm te evitas escribir todo el codigo
     // @include m.telefono{
     //     background-color: blue;
     // }

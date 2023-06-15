@@ -46,15 +46,23 @@ function versionAvif(cb){
     .pipe( dest('build/img'))  // Almacenar el archivo en el disco
     cb(); // callback function que
 }
+//funcion de ejecución continua de codigo javascript con gulp
+function javascript(cb){
+    src('./src/js/**/*.js')//se encarga de buscar todas las imagines en {png,jpg}estos formatos
+    .pipe( dest('build/js'))  // Almacenar el archivo en el disco
+    cb(); // callback function que indica que la tarea ha finalizado
+}
 //funcion de ejecución continua de codigo scss a css con gulp
 function dev(cb){
     //el **/* es para que escuche todos los archivos dentro de la carpeta y los actualize
     watch('./src/scss/**/*.scss', css) // vigilar los cambios en el archivo de sass
+    watch('./src/js/**/*.js', javascript) // vigilar los cambios en el archivo de Javascript
     cb();// callback
 }
 //exportacion de las funciones como en react
 exports.css = css;
+exports.js = javascript;
 exports.imagenes = imagenes;
 exports.versionwebp = versionwebp;
 exports.versionAvif = versionAvif;
-exports.dev = parallel(imagenes, versionAvif,versionwebp,dev);//ejecuta las funciones en paralelo con parallel
+exports.dev = parallel(imagenes, versionAvif,versionwebp, javascript,dev);//ejecuta las funciones en paralelo con parallel
