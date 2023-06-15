@@ -1,17 +1,26 @@
 const { src, dest, watch, parallel } = require('gulp');//importa funciones propias de gulp y direciones de carpetas
 //apartado css
-const sass = require("gulp-sass")(require('sass'));
-const plumber = require("gulp-plumber");
+const sass = require("gulp-sass")(require('sass'));//importa la funcion de sass y la ejecuta con gulp
+const plumber = require("gulp-plumber");//evita que se detenga la compilacion por errores
+const autoprefixer = require("autoprefixer");//agrega prefijos a las propiedades de css para que sea compatible con todos los navegadores
+const cssnano = require("cssnano");//minifica el codigo css para que sea mas ligero y rapido de cargar en el navegador web
+const postcss = require("gulp-postcss");//permite la integracion de autoprefixer y cssnano con gulp y sass
+const sourcemaps = require("gulp-sourcemaps");//permite ver el codigo original de sass en el navegador web para poder debugear el codigo css en el navegador web
 //cenvertidor de imagenes a webp,e precesamiento de imagen con imagemin y requere cache
 const cache = require('gulp-cache') // cache se eencarga de guardar archivos de convercion residual
 const imagemin = require('gulp-imagemin')// imagemin hace la conversion con mas calidad de imagenes
 const webp = require('gulp-webp');// convierte las imagenes a formato webp
+//javascript
+const terser = require('gulp-terser-js');//minifica el codigo javascript para que sea mas ligero y rapido de cargar en el navegador web
 //funcion de integracion de scss a css con gulp
 const avif = require('gulp-avif');// convierte las imagenes a formato avif
 function css(cb){
     src('./src/scss/**/*.scss')// identificar el archivo de sass
+    .pipe( sourcemaps.init() ) // iniciar el procesamiento de sourcemaps (para ver el codigo original de sass en el navegador web)
     .pipe(plumber()) // evitar que se detenga la compilacion por errores
     .pipe( sass () ) // compilar el archivo de sass
+    .pipe( postcss([ autoprefixer(), cssnano() ]) ) // agregar prefijos y minificar el css
+    .pipe( sourcemaps.write('.') ) // escribir los sourcemaps en el mismo directorio que el archivo css compilado (./css)
     .pipe( dest('build/css'))  // Almacenar el archivo en el disco
 
     cb(); // callback function que indica que la tarea ha finalizado
@@ -49,6 +58,9 @@ function versionAvif(cb){
 //funcion de ejecución continua de codigo javascript con gulp
 function javascript(cb){
     src('./src/js/**/*.js')//se encarga de buscar todas las imagines en {png,jpg}estos formatos
+    .pipe( sourcemaps.init() ) // iniciar el procesamiento de sourcemaps (para ver el codigo original de javascript en el navegador web)
+    .pipe(terser())//minifica el codigo javascript para que sea mas ligero y rapido de cargar en el navegador web
+    .pipe( sourcemaps.write('.') ) // escribir los sourcemaps en el mismo directorio que el archivo jd compilado (./j)
     .pipe( dest('build/js'))  // Almacenar el archivo en el disco
     cb(); // callback function que indica que la tarea ha finalizado
 }
